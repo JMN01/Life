@@ -1,0 +1,90 @@
+﻿@page "/members"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender : false))
+
+<PageTitle>Mömber</PageTitle>
+
+<h1>Member</h1>
+
+@if (_members.Count == 0)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>License Number</th>
+            <th>Active?</th>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var member in _members)
+        {
+            <tr>
+                <td>@member.Name</td>
+                <td>@member.RoleType</td>
+                <td>@member.LicenseNumber</td>
+                <td>@member.IsActive</td>
+                <th><button>More</button></th>
+                <th><button class="btn btn-primary" @onclick="@(() => EditMember(@member.MemberId))">Edit</button></th>
+                <th><button class="btn btn-danger" @onclick="@(() => DeleteMemberAsync(@member.MemberId))">Delete</button></th>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <button class="btn btn-primary" @onclick="AddMember">Add a new member</button>
+}
+
+@code {
+
+    List<Member> _members = new List<Member>();
+    List<Team> _teams = new List<Team>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        await Task.Delay(500);
+        await LoadMember();
+    }
+
+    void More()
+    {
+        NavigationManager.NavigateTo("edit-all");
+    }
+
+    void AddMember()
+    {
+        NavigationManager.NavigateTo("edit-members");
+    }
+
+    void EditMember(int id)
+    {
+        NavigationManager.NavigateTo($"edit-members/{id}");
+    }
+
+    async Task DeleteMemberAsync(int id)
+    {
+        await Http.DeleteAsync($"api/members/{id}");
+        await LoadMember();
+    }
+
+    async Task LoadMember()
+    {
+        var result = await Http.GetFromJsonAsync<List<Member>>("api/members");
+
+        if (result is not null)
+        {
+            _members = result;
+        }
+    }
+
+}

@@ -1,0 +1,78 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header styling */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Workout Item container */
+.workout-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Workout Item styles */
+.workout-item {
+    display: flex;
+    margin-bottom: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Image styles */
+.workout-image {
+    flex: 1;
+    padding: 20px;
+}
+
+.workout-image img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* Details section */
+.workout-details {
+    flex: 2;
+    padding: 20px;
+}
+
+/* Diagram styles */
+.workout-diagram img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Ingredients and exercises lists */
+.ingredients, .exercises {
+    margin-top: 20px;
+}
+
+.ingredients ul, .exercises ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.ingredients li, .exercises li {
+    background-color: #fafafa;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+/* Hover effects for items */
+.ingredients li:hover, .exercises li:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
